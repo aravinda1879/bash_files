@@ -1,0 +1,18 @@
+#!/bin/bash
+echo "what is the datafile?"
+read fname
+cat << EOF > gnu.in
+f(x) = a*x+b
+g(x) = c*x+d
+fit [300:465] f(x) '' using 1:2 via a, b 
+fit [475:500] g(x) '' using 1:2 via c, d 
+set title "Density vs temperature"
+set termopt enhanced
+set xlabel ""
+set label "" at first 473.78, first 0.95
+set ylabel "Density (g cm^{-3} )"
+set xrange [300:500]
+set yrange [0.7:1]
+set arrow from 473.78,0.7 to 473.78,1 nohead
+plot f(x) notitle ,g(x) notitle,'t_vs_den' u 1:2 w p notitle
+EOF

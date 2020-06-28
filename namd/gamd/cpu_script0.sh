@@ -1,0 +1,47 @@
+#! /bin/bash
+source ../namd_variables.sh
+cat << EOF > script_cpu.sh
+#!/bin/bash
+#SBATCH --job-name=${infile}
+#SBATCH --output=gpuMemTest.out
+#SBATCH --error=gpuMemTest.err
+#SBATCH --ntasks=${num_cpu}
+##SBATCH --nodes=$num_nodes
+#SBATCH --cpus-per-task=1
+##SBATCH --ntasks-per-socket=1
+#SBATCH --distribution=cyclic:cyclic
+#SBATCH --time=4-00:00:00
+#SBATCH --mem-per-cpu=2gb
+#SBATCH --mail-type=none
+#SBATCH --mail-user=some_user@some_domain.com
+##SBATCH --account=alberto.perezant
+##SBATCH --qos=alberto.perezant-b
+#SBATCH --account=colina
+#SBATCH --qos=colina-b
+#SBATCH --partition=hpg2-compute
+##SBATCH --gres=gpu:tesla:${num_gpu}
+set -e
+#export PATH=/home/aravinda1879/progs/namd/2.12/Linux-x86_64-icc:\$PATH
+ml intel/2018  openmpi/3.1.2 namd/2.13
+
+srun --mpi=pmix_v2  namd2  ${conf_min1_f} > ${infile}_wb_min_1.log
+srun --mpi=pmix_v2  namd2  ${conf_min2_f} > ${infile}_wb_min_2.log
+module load vmd
+vmd -dispdev text -eofexit < $tcl_f4 > output_vmd5.log
+srun --mpi=pmix_v2  namd2   ${conf_heat_eq_f} > ${infile}_wb_eq_heat.log
+srun --mpi=pmix_v2  namd2   ${conf_pro_f} > ${infile}_wb_md.log
+srun --mpi=pmix_v2  namd2   ${conf_pro_f%md1.conf}gmd0.conf > ${infile}_wb_gmd0.log
+
+for i in \`seq 1 3\`;
+do
+cd imd_\${i}
+if [ \$i == "1" ]; then
+jid1=\$(sbatch script_cpu.sh)
+else
+jid1=\$(sbatch --dependency=afterany:\${jid1##* }  script_cpu.sh)
+fi  
+cd ..
+done
+rm core*
+EOF
+    

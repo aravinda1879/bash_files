@@ -1,0 +1,39 @@
+#!/bin/bash
+comdir="../../allnc"
+source ../../var_list.sh
+cat << EOF > script_$1
+#!/bin/bash
+#PBS -N be_${fname}_run_${1}
+#PBS -M ara1879@ufl.edu
+#PBS -m abe
+#PBS -o amber.out
+#PBS -e amber.err
+#PBS -j oe
+#PBS -l nodes=5:ppn=2
+#PBS -l walltime=100:00:00
+#PBS -l pmem=6gb
+
+
+module load intel/2013  openmpi/1.6.5
+module load amber/14
+
+echo \$PBS_O_WORKDIR
+cd \$PBS_O_WORKDIR
+
+echo Host = \`hostname\`
+echo Date = \`date\`
+
+
+mpiexec  MMPBSA.py.MPI -O -i mmpbsa_${1}_0.in  -o final_be_${1}_0.dat -cp ../new$cptop -rp ../new$rptop -lp ../new$lptop -mc new$mcptop  -mr new$mrptop  -y ${comdir}/${nc_com}_5ps_strip_h2o_ion.mdcrd   > progress_${1}_0.log 2>&1 
+mpiexec  MMPBSA.py.MPI -O -i mmpbsa_${1}_1.in  -o final_be_${1}_1.dat -cp ../new$cptop -rp ../new$rptop -lp ../new$lptop -mc new$mcptop  -mr new$mrptop  -y ${comdir}/${nc_com}_5ps_strip_h2o_ion.mdcrd   > progress_${1}_1.log 2>&1 
+mpiexec  MMPBSA.py.MPI -O -i mmpbsa_${1}_2.in  -o final_be_${1}_2.dat -cp ../new$cptop -rp ../new$rptop -lp ../new$lptop -mc new$mcptop  -mr new$mrptop  -y ${comdir}/${nc_com}_5ps_strip_h2o_ion.mdcrd   > progress_${1}_2.log 2>&1 
+mpiexec  MMPBSA.py.MPI -O -i mmpbsa_${1}_3.in  -o final_be_${1}_3.dat -cp ../new$cptop -rp ../new$rptop -lp ../new$lptop -mc new$mcptop  -mr new$mrptop  -y ${comdir}/${nc_com}_5ps_strip_h2o_ion.mdcrd   > progress_${1}_3.log 2>&1 
+mpiexec  MMPBSA.py.MPI -O -i mmpbsa_${1}_4.in  -o final_be_${1}_4.dat -cp ../new$cptop -rp ../new$rptop -lp ../new$lptop -mc new$mcptop  -mr new$mrptop  -y ${comdir}/${nc_com}_5ps_strip_h2o_ion.mdcrd   > progress_${1}_4.log 2>&1 
+EOF
+
+cat << EOF >> ../run_list.sh
+cd ${1}
+qsub script_${1}
+cd ..
+EOF
+

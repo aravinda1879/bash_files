@@ -1,0 +1,34 @@
+mol load pdb "xx"
+set xxx [ccccc ]  # saves what ever in bracketss to x
+$ubq writepdb ubqp.pdb 
+# before psf we need pgn file
+
+package require psfgen	  # calling a pkg 
+topology top_all27_prot_lipid.inp	#topology file  
+pdbalias residue HIS HSE	 # defining protonation
+pdbalias atom ILE CD1 CD	 #there are no two CDs
+segment U {pdb ubqp.pdb}	 #segmant contains all the atoms and add hydrogen (dont know if add accord to ph)
+coordpdb ubqp.pdb U	 #cords be taken from pdb and overidden by new label U
+guesscoord	 #missing residues will be gueessed according to defined in topo
+writepdb ubq.pdb	 #new will be written
+writepsf ubq.psf #new psf will be written
+# to run the vmd via terminal
+vmd -dispdev text -e ubq.pgn
+
+#slvate the protein
+
+#in a sphere
+vmd -dispdev text -e wat_sphere.tcl 
+
+#in a box
+package require solvate	 
+solvate ubq.psf ubq.pdb -t 5 -o ubq_wb   # -o term makes two psf and pdb outputs. -t defines the box buffering size
+
+##################### CONFIGURATION FILE ##################
+# --> commnet
+;# --> remainder of the line is a comment
+set x 30 #defines a variable 
+$x 30 # label for 30
+firsttimestep # defines what is the 1st time step of the MD and comes handy in restarting 
+
+

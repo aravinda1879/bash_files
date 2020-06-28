@@ -1,0 +1,32 @@
+      program extract_bfactor
+#     This program edit pdb file and make the rspective CA bfactor
+      character a_name*3,r_name*3,t1*4,infile*20
+      integer r_num,val
+      i=1
+      write(6,*)'Please enter the pdb file name with extnsion'
+      call system('ls *pdb')
+      read(5,*) infile
+      write(6,*)infile
+      open(unit=10,file=infile,status='old')
+      open(unit=20,file='info_bfactor',status='unknown')
+      open(unit=21,file='bfactor.dat',status='unknown')
+      do while (1.eq.1)
+       read(10,300,IOSTAT=val)t1
+       if(val.lt.0) goto 500
+       if (t1.eq."ATOM") then
+        backspace 10
+        read(10,301)a_name,r_name,r_num,b_f
+        write(20,302) a_name,r_name,r_num,b_f
+        if (a_name.eq."CA ") then
+         write(21,*)i,b_f
+         i=i+1
+        end if
+       end if
+      end do
+ 300  format(a4)
+ 301  format(13x,a3,1x,a3,3x,i3,34x,f6.2)
+ 302  format(2x,a3,2x,a3,2x,i3,2x,f6.2)
+ 303  format(2x,i3,2x,f6.2)  
+
+ 500  stop
+      end

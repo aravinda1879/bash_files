@@ -1,0 +1,40 @@
+      program one
+      real rind(9),rtot(9),avg(9)
+      character infile*20,outfile*20
+      integer bin
+      infile='6nm_3nm.dat'
+      outfile='avg.dat'
+      open(unit=10,file=infile,status='old')
+      open(unit=20,file=outfile,status='unknown')
+      read(10,*)
+      t=0
+      i2=0
+      bin=500
+      cnt=0
+      cnt2=0
+      rtot=0
+      rind=0
+      do while (t.eq.0)
+       do i=1,bin
+        read(10,*,iostat=ieof)(rind(j),j=1,9)
+        if (ieof.lt.0) then
+         i2=i-1
+         t=1
+         goto 300
+        end if
+        cnt=cnt+1
+        i2=i
+        rtot=rtot+rind
+       end do
+ 300   avg= rtot/i2
+       write(20,*)cnt2*5/1000,"-",cnt*5/1000,(avg(2*i)+avg(2*i+1),i=1,4)
+       rtot=0
+       rind=0
+       cnt2=cnt
+      end do
+      stop
+      end 
+       
+       
+       
+      

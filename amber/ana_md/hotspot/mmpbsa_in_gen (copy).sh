@@ -1,0 +1,35 @@
+#!/bin/bash
+source ../../var_list.sh
+COUNTER=0
+while [  $COUNTER -lt 5 ]; do
+cat << EOF > mmpbsa_${1}_${COUNTER}.in
+Input file for running PB,GB and Alanine scaning
+&general
+startframe= $(( sframe + 800 * ( COUNTER ) )) ,endframe= (( sframe + 800 * ( COUNTER + 1 ) - 1 )), verbose=1,
+#startframe= $sframe ,endframe= $eframe , verbose=1,
+   interval= $nsplit,
+use_sander=1
+#ligand_mask=':${llist}',
+#receptor_mask=':${rlist}'
+#   entropy=1,
+/
+#&gb
+#  igb=2, saltcon=0.2
+#/
+&pb
+  istrng=0.100, inp=2, radiopt=1, indi=2.0
+/
+#&nmode
+#   nmstartframe=1, nmendframe=50,
+#   nminterval=5, nmode_igb=1, nmode_istrng=0.1,
+#/
+&alanine_scanning
+/
+
+#&decomp
+#idecomp=1, print_res="${ldecom}"
+#  dec_verbose=1,
+#/
+EOF
+let COUNTER=COUNTER+1 
+done

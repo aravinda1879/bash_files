@@ -1,0 +1,27 @@
+#!/bin/bash
+export pol1=top_all35_ethers_oh.rtf
+export pol2=par_all35_ethers_oh.prm
+export pol_rtf="${HOME}/charmm/toppar/${pol1}"
+export pol_prm="${HOME}/charmm/toppar/${pol2}"
+#export pol_inp="${HOME}/charmm/toppar/ethers_monomer.inp"
+export prot1=top_all36_prot.rtf
+export prot2=par_all36m_prot.prm
+export prot_rtf="${HOME}/charmm/toppar/${prot1}"
+export prot_prm="${HOME}/charmm/toppar/${prot2}"
+#export prot_inp="${HOME}/charmm/toppar/top_all27_prot_lipid.inp"
+export cgen1=top_all36_cgenff.rtf
+export cgen2=par_all36_cgenff.prm
+export cgenff_rtf="${HOME}/charmm/toppar/${cgen1}"
+export cgenff_prm="${HOME}/charmm/toppar/${cgen2}"
+export na1=top_all36_na.rtf
+export na2=par_all36_na.prm
+export na_rtf="${HOME}/charmm/toppar/${na1}"
+export na_prm="${HOME}/charmm/toppar/${na2}"
+export lipid1=top_all36_lipid.rtf
+export lipid2=par_all36_lipid.prm
+export lipid_rtf="${HOME}/charmm/toppar/${lipid1}"
+export lipid_prm="${HOME}/charmm/toppar/${lipid2}"
+export carb1=top_all36_carb.rtf
+export carb2=par_all36_carb.prm
+export carb_rtf="${HOME}/charmm/toppar/${carb1}"
+export carb_prm="${HOME}/charmm/toppar/${carb2}"

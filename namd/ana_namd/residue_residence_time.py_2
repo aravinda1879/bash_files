@@ -1,0 +1,133 @@
+import numpy as np
+import os
+import sys
+import matplotlib.pyplot as plt
+import gc
+time_stp = float(sys.argv[1])
+cut_percentage = float(sys.argv[2])
+infile1 = str(sys.argv[3])
+infile2 = str(sys.argv[4])
+prefix = str(sys.argv[5])
+outfile = str(sys.argv[6])
+lst_dir = str(sys.argv[7])
+
+print(time_stp)
+file = "ana_md/%s/%s"%(prefix,infile2)
+lst_res, lst_min_time, lst_max_time, lst_mean, lst_std, lst_tot_time = [], [], [], [], [], []
+lst_total_mean, lst_total_sd = [], []
+def read_pdb (infile1) :
+    residue, resid = 0, 1
+    residue_index, resname_index, resid_index, segname_index = [], [], [], [] 
+    with open('%s/%s'%(lst_dir,infile1), 'r') as f:
+        data = f.readlines()
+        # data = list(map(lambda x: list( x.split()), data))
+        for line in data:
+            if line[0:4] == 'ATOM':
+                if resid != int(line[22:27]):
+                    residue = residue + 1
+                    resid = int(line[22:27])
+                residue_index.append(residue)
+                resname_index.append(str(line[17:22]))
+                resid_index.append(int(line[22:27]))
+                segname_index.append(str(line[72:77]))
+    return residue_index, resname_index, resid_index, segname_index
+
+#print("hii")
+#lst_dir=list(lst_dir)
+print(lst_dir)
+lsd=[]
+lsd.append(lst_dir)
+for f_dir in lsd:
+    print("\nworking on {}".format(f_dir))
+    residue_index, resname_index, resid_index, segname_index = read_pdb(infile1)
+    with open('%s/%s'%(f_dir, file), 'r') as f:
+        data = f.readlines()
+        lst_tot_time.append(len(data) * time_stp)
+        print("simulation length of {}".format(len(data) * time_stp))
+        data = list(map(lambda x: list(map(int, x.split('|')[-1].split())), data))
+    gc.collect()
+    ntimesteps = len(data)
+    nparticles = max(residue_index) + 1 #remember this is residue number. previous version based on resid
+    #print(nparticles)
+    data = [i for i in map(lambda arg: [nparticles] if arg[1] == [-1] else arg[1], enumerate(data))]
+    #print("44")
+    data = data[-20:]
+    print(len(data))
+    tmp = list(np.bincount(d, minlength=nparticles) for d in data)
+    del data
+    def pad_to_length(a, length, tmp):
+        z = np.zeros(length)
+        z[:a.shape[0]] = a
+    #    print(len(list(tmp)))
+        gc.collect()
+        return z
+    gc.collect()
+    #print("betw")
+    new = np.array([pad_to_length(a, nparticles +1, tmp) for a in tmp]).T
+    del tmp
+    print(len(new))
+    gc.collect()
+    def residence_times(arr, new):
+        """print(arr.shape)"""
+        bounded = np.hstack(([0], arr, [0]))
+        difs = np.diff(bounded)
+        run_starts, = np.where(difs > 0)
+        run_ends, = np.where(difs < 0)
+        #print(list(new).index(arr))
+        gc.collect()
+        return (run_ends - run_starts) * time_stp
+    res = [residence_times(a, new) for a in new]
+    #lst_res.append(res)
+    gc.collect()
+    #print("here 2")
+    flat_res_list = [item for sublist in res for item in sublist]
+    lst_total_mean.append(np.nan_to_num([np.mean(flat_res_list)]))
+    lst_total_sd.append(np.nan_to_num([np.std(flat_res_list)]))
+    print("mean {}".format(lst_total_mean))
+    print("sd {}".format(lst_total_sd))
+    mean = np.nan_to_num([np.mean(r) for r in res])
+    lst_mean.append(mean)
+    std = np.nan_to_num([np.std(r) for r in res])
+    lst_std.append(std)
+    max_res = []
+    min_res = []
+    for i, r in enumerate(res):
+        try:
+            max_res.append(float(np.nan_to_num(np.max(r))))
+        except:
+            max_res.append(0)
+        try:
+            min_res.append(float(np.nan_to_num(np.min(r))))
+        except:
+            min_res.append(0)
+    #res_name = "NTD"
+    #residue = 123
+    lst_min_time.append(min_res)
+    lst_max_time.append(max_res)
+#with open('all_residence_time_from_python.dat', 'w') as f:
+#    #in this BSA study I am recalling resid which was printed by the 
+#    f.write('#residue resname resid | min_time max_time mean SD | ')
+#    for f_dir in lst_dir:
+#        f.write('{} '.format(f_dir))
+#    for i, val in enumerate(res):
+#        f.write('\n{:>5} {} {:>4} '.format(i, resname_index[residue_index.index(i)], resid_index[residue_index.index(i)]))
+#        for min_t, max_t, mn, sd in zip(lst_min_time, lst_max_time, lst_mean, lst_std):
+#            f.write('{:6.3f} {:8.3f} {:8.3f} {:8.3f} '.format(float(min_t[i]), float(max_t[i]), mn[i], sd[i]))
+# print individual file in each directory with similar to a file resinfo with a cutoff  --> combined file is not required for water and ion analysis
+#f2 = open('all_filtered_residence_time_from_python.dat', 'w')
+#f2.write('#residue resname resid | min_time max_time mean SD\n')
+#ifor i, f_dir in enumerate(lst_dir):
+#    file = "ana_md/%s/%s"%(prefix,outfile)
+#    print(file) 
+#    with open('%s/%s'%(f_dir, file), 'w') as f:
+#        print("\nprinting a file on {}".format(f_dir))
+#        f.write('#resid resname residue | min_time max_time mean SD')
+#        lst_filtered_res = np.where(np.array(lst_max_time[i]) > (float(lst_tot_time[i]) * cut_percentage))
+#        for j in lst_filtered_res[0]:
+#            f.write('\n{:>5} {} {:>4} '.format(i, resname_index[residue_index.index(i)], resid_index[residue_index.index(i)]))
+#            #f2.write('\n{:>5} {} {:>4} '.format(i, resname_index[residue_index.index(i)], resid_index[residue_index.index(i)]))
+#            f.write('{:6.3f} {:8.3f} {:8.3f} {:8.3f}'.format(float(lst_min_time[i][j]), float(lst_max_time[i][j]), lst_mean[i][j], lst_std[i][j]))
+            #f2.write('{} {:6.3f} {:8.3f} {:8.3f} {:8.3f}'.format(f_dir, float(lst_min_time[i][j]), float(lst_max_time[i][j]), lst_mean[i][j], lst_std[i][j]))
+#f2.close()
+#for i,f_dir in enumerate(lst_dir):
+print("Total resident time in {} is {} with SD of {}".format(f_dir, lst_total_mean[i], lst_total_sd[i]))

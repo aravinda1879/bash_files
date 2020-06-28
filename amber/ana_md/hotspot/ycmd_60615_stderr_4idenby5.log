@@ -1,0 +1,7 @@
+2017-01-06 19:05:01,769 - ERROR - ycm_core library not detected; you need to compile it by running the build.py script. See the documentation for more details.
+Traceback (most recent call last):
+  File "/home/terabithia/.vim/bundle/YouCompleteMe/third_party/ycmd/ycmd/server_utils.py", line 95, in CompatibleWithCurrentCore
+    ycm_core = ImportCore()
+  File "/home/terabithia/.vim/bundle/YouCompleteMe/third_party/ycmd/ycmd/server_utils.py", line 87, in ImportCore
+    import ycm_core as ycm_core
+ImportError: No module named 'ycm_core'

@@ -1,0 +1,136 @@
+remark goes here
+MASS
+CA 12.010        0.360               same as c2 
+HA 1.008         0.135               same as hc 
+N2 14.010        0.530               same as n3 
+H  1.008         0.161               same as hn 
+C  12.010        0.616               same as c  
+CT 12.010        0.878               same as c3 
+HC 1.008         0.135               same as hc 
+H1 1.008         0.135               same as hc 
+N  14.010        0.530               same as n  
+OS 16.000        0.465               same as os 
+O  16.000        0.434               same as o  
+
+BOND
+CA-CA  461.10   1.398       same as ca-ca
+CA-HA  344.30   1.087       same as c2-hc
+CA-N2  417.90   1.386       same as ca-nh
+CA-C   449.90   1.406       same as c -c2
+N2-H   392.40   1.019       same as hn-n3
+C -CT  313.00   1.524       same as c -c3
+C -O   637.70   1.218       same as c -o 
+CT-HC  330.60   1.097       same as c3-hc
+CT-CT  300.90   1.538       same as c3-c3
+CT-H1  330.60   1.097       same as c3-hc
+CT-N   328.70   1.462       same as c3-n 
+C -OS  390.80   1.358       same as c -os
+N -H   403.20   1.013       same as hn-n 
+N -C   427.60   1.379       same as c -n 
+
+ANGLE
+CA-CA-CA   66.620     120.020   same as ca-ca-ca
+CA-CA-N2   68.290     120.950   same as ca-ca-nh
+CA-CA-HA   50.010     119.700   same as c2-c2-hc
+CA-CA-C    67.710     120.700   same as c -c2-c2
+CA-N2-H    49.100     119.380   same as c2-n3-hn
+CA-C -CT   64.292     116.640   Calculated with empirical approach
+CA-C -O    72.680     119.120   same as c2-c -o 
+H -N2-H    41.400     106.400   same as hn-n3-hn
+C -CT-HC   46.930     108.770   same as c -c3-hc
+C -CT-CT   63.270     111.040   same as c -c3-c3
+CT-C -O    67.400     123.200   same as c3-c -o 
+CT-CT-H1   46.340     109.800   same as c3-c3-hc
+CT-CT-N    65.910     111.610   same as c3-c3-n 
+HC-CT-HC   39.400     107.580   same as hc-c3-hc
+HC-CT-CT   46.340     109.800   same as c3-c3-hc
+CT-C -OS   68.890     110.720   same as c3-c -os
+CT-N -H    45.800     117.680   same as c3-n -hn
+CT-N -C    63.390     120.690   same as c -n -c3
+H1-CT-C    46.930     108.770   same as c -c3-hc
+H1-CT-N    49.690     109.500   same as hc-c3-n 
+C -CT-N    67.000     109.060   same as c -c3-n 
+C -OS-C    63.800     120.640   same as c -os-c 
+N -C -CT   66.790     115.180   same as c3-c -n 
+N -C -O    74.220     123.050   same as n -c -o 
+H -N -C    48.330     117.550   same as c -n -hn
+OS-C -O    75.320     123.250   same as o -c -os
+
+DIHE
+CA-CA-CA-CA   1    3.625       180.000           2.000      same as X -ca-ca-X 
+CA-CA-CA-C    1    6.650       180.000           2.000      same as X -c2-c2-X 
+CA-CA-N2-H    1    0.300       180.000           2.000      same as X -c2-n3-X 
+CA-CA-CA-HA   1    6.650       180.000           2.000      same as X -c2-c2-X 
+CA-CA-C -CT   1    2.175       180.000           2.000      same as X -c -c2-X 
+CA-CA-C -O    1    2.175       180.000          -2.000      same as c2-c2-c -o 
+CA-CA-C -O    1    0.300         0.000           3.000      same as c2-c2-c -o 
+CA-C -CT-HC   1    0.000       180.000           2.000      same as X -c -c3-X 
+CA-C -CT-CT   1    0.000       180.000           2.000      same as X -c -c3-X 
+CA-CA-CA-N2   1    3.625       180.000           2.000      same as X -ca-ca-X 
+HA-CA-CA-N2   1    6.650       180.000           2.000      same as X -c2-c2-X 
+HA-CA-CA-HA   1    6.650       180.000           2.000      same as X -c2-c2-X 
+HA-CA-CA-C    1    6.650       180.000           2.000      same as X -c2-c2-X 
+N2-CA-CA-C    1    6.650       180.000           2.000      same as X -c2-c2-X 
+C -CT-CT-H1   1    0.156         0.000           3.000      same as X -c3-c3-X 
+C -CT-CT-C    1    0.156         0.000           3.000      same as X -c3-c3-X 
+C -CT-CT-N    1    0.156         0.000           3.000      same as X -c3-c3-X 
+CT-CT-C -OS   1    0.000       180.000           2.000      same as X -c -c3-X 
+CT-CT-C -O    1    0.000       180.000           2.000      same as X -c -c3-X 
+CT-CT-N -H    1    0.000         0.000           2.000      same as X -c3-n -X 
+CT-CT-N -C    1    0.500       180.000          -4.000      same as c3-c3-n -c 
+CT-CT-N -C    1    0.150       180.000          -3.000      same as c3-c3-n -c 
+CT-CT-N -C    1    0.000         0.000          -2.000      same as c3-c3-n -c 
+CT-CT-N -C    1    0.530         0.000           1.000      same as c3-c3-n -c 
+HC-CT-C -O    1    0.800         0.000          -1.000      same as hc-c3-c -o 
+HC-CT-C -O    1    0.000         0.000          -2.000      same as hc-c3-c -o 
+HC-CT-C -O    1    0.080       180.000           3.000      same as hc-c3-c -o 
+HC-CT-CT-H1   1    0.150         0.000           3.000      same as hc-c3-c3-hc
+HC-CT-CT-C    1    0.156         0.000           3.000      same as X -c3-c3-X 
+HC-CT-CT-N    1    0.156         0.000           3.000      same as X -c3-c3-X 
+CT-C -OS-C    1    2.700       180.000           2.000      same as X -c -os-X 
+CT-N -C -CT   1    0.000         0.000          -2.000      same as c3-c -n -c3
+CT-N -C -CT   1    1.500       180.000           1.000      same as c3-c -n -c3
+CT-N -C -O    1    2.500       180.000           2.000      same as X -c -n -X 
+H1-CT-C -OS   1    0.000       180.000           2.000      same as X -c -c3-X 
+H1-CT-C -O    1    0.800         0.000          -1.000      same as hc-c3-c -o 
+H1-CT-C -O    1    0.000         0.000          -2.000      same as hc-c3-c -o 
+H1-CT-C -O    1    0.080       180.000           3.000      same as hc-c3-c -o 
+H1-CT-N -H    1    0.000         0.000           2.000      same as X -c3-n -X 
+H1-CT-N -C    1    0.000         0.000           2.000      same as X -c3-n -X 
+C -CT-N -H    1    0.000         0.000           2.000      same as X -c3-n -X 
+C -CT-N -C    1    0.850       180.000          -2.000      same as c -n -c3-c 
+C -CT-N -C    1    0.800         0.000           1.000      same as c -n -c3-c 
+C -OS-C -O    1    2.700       180.000           2.000      same as X -c -os-X 
+N -CT-C -OS   1    0.000       180.000           2.000      same as X -c -c3-X 
+N -CT-C -O    1    0.000       180.000           2.000      same as X -c -c3-X 
+N -C -CT-HC   1    0.000       180.000           2.000      same as X -c -c3-X 
+H -N -C -CT   1    2.500       180.000           2.000      same as X -c -n -X 
+H -N -C -O    1    2.500       180.000          -2.000      same as hn-n -c -o 
+H -N -C -O    1    2.000         0.000           1.000      same as hn-n -c -o 
+OS-C -CT-HC   1    0.000       180.000           2.000      same as X -c -c3-X 
+
+IMPROPER
+CA-CA-CA-HA         1.1          180.0         2.0          Using default value
+CA-CA-CA-N2         1.1          180.0         2.0          Using default value
+C -CA-CA-CA         1.1          180.0         2.0          Using default value
+CA-H -N2-H          1.1          180.0         2.0          Using default value
+CA-CT-C -O          1.1          180.0         2.0          Using default value
+CT-O -C -OS         1.1          180.0         2.0          Using default value
+C -CT-N -H          1.1          180.0         2.0          Using default value
+CT-N -C -O          1.1          180.0         2.0          Using default value
+
+NONBON
+  CA          1.9080  0.0860             same as ca 
+  HA          1.4870  0.0157             same as hc 
+  N2          1.8240  0.1700             same as nh 
+  H           0.6000  0.0157             same as hn 
+  C           1.9080  0.0860             same as c  
+  CT          1.9080  0.1094             same as c3 
+  HC          1.4870  0.0157             same as hc 
+  H1          1.4870  0.0157             same as hc 
+  N           1.8240  0.1700             same as n  
+  OS          1.6837  0.1700             same as os 
+  O           1.6612  0.2100             same as o  
+
+
+

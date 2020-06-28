@@ -1,0 +1,41 @@
+#!/bin/bash
+echo "what is the file name you want to saveas XX_strip_h2o.nc"
+read name
+cat << EOF > nc_combine_strip_h2o.trajin
+parm ${name}_solvate.prmtop
+EOF
+echo "how many trajectories?"
+read nround
+
+COUNTER=3
+while [ $COUNTER -lt $((nround + 1 ))  ]; do
+cat << EOF >> nc_combine_strip_h2o.trajin
+trajin ${COUNTER}.nc 
+EOF
+let COUNTER=COUNTER+1
+done
+
+cat << EOF >> nc_combine_strip_h2o.trajin
+strip :WAT
+rmsd first out rmsd_to_emin.dat @N,CA,C time 1
+trajout ${name}_1_${nround}_1ps_strip_h2o.nc netcdf    
+rmsd first out rmsd_to_emin.dat @N,CA,C time 1
+rmsd first out rmsd_to_emin.dat @N,CA,C time 1
+rmsd first out rmsd_opg_1.dat :157-320@N,CA,C time 1
+rmsd first out rmsd_crd2_1.dat :196-236@N,CA,C time 1
+rmsd first out rmsd_crd3_1.dat :238-273@N,CA,C time 1
+atomicfluct out bfactor_all.dat @CA byatom 
+rmsd first out rmsd_rankl_1.dat :1-156@N,CA,C time 1
+run
+EOF
+
+cat << EOF >> nc_combine_5ps_strip_h2o.trajin
+parm prm_strip_h2o.trajin
+trajin trajout ${name}_1_${nround}_1ps_strip_h2o.nc netcdf 1 last 5
+rmsd first out rmsd_to_emin.dat @N,CA,C time 1
+run
+EOF
+
+
+
+
