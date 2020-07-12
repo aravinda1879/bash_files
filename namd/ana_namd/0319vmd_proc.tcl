@@ -1,4 +1,4 @@
-#available scripts are as follows
+#ilable scripts are as follows
 #sasa_cal mol f_name sel restrict
 #center_of_mass 
 #list_diff list1 list2  
