@@ -2,7 +2,7 @@
 ls
 #echo "enter the cordfile (name of pdb & psf) without extension"
 infile0=$1
-infile=${infile0}_10ps
+infile=${infile0}_20ps
 insalt=$2
 T=$3
 cluster=$4
@@ -41,7 +41,7 @@ script=gpu  #options are cpu or gpu
 num_nodes=2
 num_gpu=1
 num_cpu=512
-num_gpu_cpu=7
+num_gpu_cpu=4
 run_repeat=30  #how many times needed to repeat bash run
 #simulation ions 
 salt_con=${insalt}      
@@ -68,29 +68,28 @@ linker_prm_file3=par_all36_prot.prm
 #linker_prm_file4=toppar_all36_synthetic_polymer.str
 linker_prm_file4=par_all36_carb.prm
 linker_prm_file5=toppar_all36_carb_glycopeptide.str
-#linker_prm_file6=toppar_water_ions.str                        
-linker_prm_file6=fad.str 
+linker_prm_file6=toppar_water_ions.str                        
 linker_prm_file7=toppar_water_ions.str 
 #solvating variables
 buf_d=14
 cubic_box=yes
-cubic_box_vec=65 # half of one needed (i.e. - for a box size with 140A give 70)  
+cubic_box_vec=75 # half of one needed (i.e. - for a box size with 140A give 70)  
 
 #minimizing variables
 final_temp=${T}
 first_time_step=0
 
 #ff parameters
-vdw_cutoff=12.0
+vdw_cutoff=10.0
 switching=on   
 vdwForceSwitching=on        
-switchdist=10.0
-pairlistdist=13.5
+switchdist=8.0
+pairlistdist=12
 
 #MD run related
-timestep=2.0
+timestep=4.0
 nonbondedFreq=1
-fullElectFrequency=2
+fullElectFrequency=1
 stepsPerCycle=20
 
 #temperature

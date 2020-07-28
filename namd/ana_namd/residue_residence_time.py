@@ -20,6 +20,7 @@ file = "ana_md/contact_wat/%s"%(infile2)
 lst_res, lst_min_time, lst_max_time, lst_mean, lst_std, lst_tot_time = [], [], [], [], [], []
 lst_total_mean, lst_total_sd = [], []
 def read_pdb (f_dir,infile1) :
+    '''this function reads the PDB'''
     residue, resid = 0, 1
     residue_index, resname_index, resid_index, segname_index = [], [], [], [] 
     with open('%s/%s'%(f_dir,infile1), 'r') as f:

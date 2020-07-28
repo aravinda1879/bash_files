@@ -90,7 +90,7 @@ if [[ $cluster == "hvd" ]] ; then
 bash ${HOME}/bash/namd/harvard_cpu_script.sh
 bash ${HOME}/bash/namd/harvard_gpu_script.sh
 sed -i '/set dir1/c\set dir1     \/n\/karplus_lab\/aravinda1879\/namd\/toppar' *conf
-sed -i '/stepspercycle/c\CUDASOAintegrate on' *conf
+sed -i '/stepspercycle/c\CUDASOAintegrate on' *md*conf *eq*conf
 #sed -i '/par_all36_carb.prm/d'  *conf
 sed -i '/par_all36_na.prm/d' *conf
 sed -i '/par_water_ions.prm/d' *conf
