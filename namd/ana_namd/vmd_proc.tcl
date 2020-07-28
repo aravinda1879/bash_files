@@ -686,13 +686,14 @@ proc contact_pol_freq { mol in_file sel_1 ou_file } {
 # -pol_ou_file1 perframe how many totla contacts and normalized contacts -pol_ou_file2 which resid is in contact with polymer
 #
 # To optimize this code remove all these if loops. and skip all intermediate if pairlen ==0 --> did this. But parsing command was not removed
+# BUGFIX 07272020   --> changing resid --. residue
 proc contact_res_freq { mol in_file ou_file ou_file2 ou_file3 ou_file4 pol_ou_file1 pol_ou_file2 { of1 "1" }  { of2 "1" } { of3 "1" }  { of4 "1" } }  {
         set in_file [open $in_file]
         set num_steps [ lindex [gets $in_file] 1]
         set res_num [ lindex [gets $in_file] 1]
         set del0 [atomselect top "protein and name CA"]
         #you may wanna change if two chains with the same resid
-        set resnum_lst [ $del0 get resid]
+        set resnum_lst [ $del0 get residue]
 	set segname_lst [ $del0 get segname]
         #expr ([llength [split [ $del0 get {resname}] " " ]] + 1)
         #set res_num [expr ([llength [split [ $del0 get {resname}] " " ]] + 1)]
@@ -722,7 +723,7 @@ proc contact_res_freq { mol in_file ou_file ou_file2 ou_file3 ou_file4 pol_ou_fi
                         #puts "making contct vs residue"
                         foreach pro_1 $pro_lst {
                                 set del1 [atomselect top "index $pro_1"]
-                                set t2 [ $del1 get resid ]
+                                set t2 [ $del1 get residue ]
                                 set res_freq($t2) [expr ( $res_freq($t2) + 1 ) ]
 	                        $del1 delete
                         }
@@ -738,7 +739,7 @@ proc contact_res_freq { mol in_file ou_file ou_file2 ou_file3 ou_file4 pol_ou_fi
                 if { $unique_pro_lst != {} } {
                         #puts "making contact time  vs residue"
                         set del1 [atomselect top "index $unique_pro_lst"]
-                        set t2 [lsort -unique [$del1 get resid ] ]
+                        set t2 [lsort -unique [$del1 get residue ] ]
                         $del1 delete
                         foreach t_rid $t2 {
                                 #to speed up you can normalize outside the loop
@@ -746,9 +747,9 @@ proc contact_res_freq { mol in_file ou_file ou_file2 ou_file3 ou_file4 pol_ou_fi
                                 set res_time_norm($t_rid) [expr ( double($res_time($t_rid)) / $num_steps ) ]
                         }
                         set del_sidechain [ atomselect top "index $unique_pro_lst and sidechain" ]
-                        set tmp_lst_sidechain  [ lsort -unique [$del_sidechain get {resid}] ]
+                        set tmp_lst_sidechain  [ lsort -unique [$del_sidechain get {residue}] ]
                         set del_backbone  [ atomselect top "index $unique_pro_lst and backbone" ]
-                        set tmp_lst_backbone [lsort -unique [$del_backbone get {resid} ] ]
+                        set tmp_lst_backbone [lsort -unique [$del_backbone get {residue} ] ]
                         $del_sidechain delete
                         $del_backbone delete
                 } else {
@@ -756,8 +757,8 @@ proc contact_res_freq { mol in_file ou_file ou_file2 ou_file3 ou_file4 pol_ou_fi
                         set tmp_lst_backbone {}
                 }
                 if { $tmp_lst_sidechain != {} && $tmp_lst_backbone != {} } {
-                        set del_sidebak [ atomselect top "resid $tmp_lst_sidechain and resid $tmp_lst_backbone" ]
-                        set tmp_lst_sidebak [ lsort -unique [$del_sidebak get {resid} ] ]
+                        set del_sidebak [ atomselect top "residue $tmp_lst_sidechain and residue $tmp_lst_backbone" ]
+                        set tmp_lst_sidebak [ lsort -unique [$del_sidebak get {residue} ] ]
                         $del_sidebak delete
                         lappend common_contact_sidebak $tmp_lst_sidebak
                         lappend contact_side $tmp_lst_sidechain
