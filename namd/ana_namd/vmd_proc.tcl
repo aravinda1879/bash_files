@@ -728,12 +728,13 @@ proc contact_res_freq { mol in_file ou_file ou_file2 ou_file3 ou_file4 pol_ou_fi
                         }
 
                 }
-                #puts "making contcts per frame vs time"
+                puts "making contcts per frame vs time"
                 set total_contact_pfrm($t_stp) $pair_len
                 #removing duplicates to count time
                 set unique_pro_lst [lsort -unique $pro_lst]
                 #making the side chain selection and backbone selection and remove duplicates
                 #puts "making contct of residue based on constituent  vs time"
+		#Apperently VMD changes side and backbone via atomtype and some warning are there. FOllowi tip
                 if { $unique_pro_lst != {} } {
                         #puts "making contact time  vs residue"
                         set del1 [atomselect top "index $unique_pro_lst"]
