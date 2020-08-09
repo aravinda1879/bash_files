@@ -32,7 +32,7 @@ package require solvate
 solvate ../${psf_f} ../${pdb_f} -t ${buf_d} -o ${infile}_wb
 exit
 EOF
-vmd -dispdev text -eofexit < $tcl_f0 > output_solvation.log
+vmd -dispdev text -eofexit < $tcl_f7 > output_solvation.log
 
 fi
 #neutralizing the system.
