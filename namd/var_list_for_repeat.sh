@@ -69,28 +69,28 @@ linker_prm_file3=par_all36_prot.prm
 linker_prm_file4=par_all36_carb.prm
 linker_prm_file5=toppar_all36_carb_glycopeptide.str
 #linker_prm_file6=toppar_water_ions.str                        
-linker_prm_file6=fad.str 
+linker_prm_file6=par_all36_prot.prm 
 linker_prm_file7=toppar_water_ions.str 
 #solvating variables
 buf_d=14
 cubic_box=yes
-cubic_box_vec=65 # half of one needed (i.e. - for a box size with 140A give 70)  
+cubic_box_vec=87.5 # half of one needed (i.e. - for a box size with 140A give 70)  
 
 #minimizing variables
 final_temp=${T}
 first_time_step=0
 
 #ff parameters
-vdw_cutoff=12.0
+vdw_cutoff=9.0
 switching=on   
 vdwForceSwitching=on        
-switchdist=10.0
-pairlistdist=13.5
+switchdist=7.0
+pairlistdist=10.5
 
 #MD run related
-timestep=2.0
+timestep=4.0
 nonbondedFreq=1
-fullElectFrequency=2
+fullElectFrequency=1
 stepsPerCycle=20
 
 #temperature
@@ -142,7 +142,7 @@ md_run0=2500000
 
 #total run time
 to_ns=000000
-time_in_ns=300
+time_in_ns=500
 run_time=\$(( time_in_ns / 2 ))\${to_ns}
 
 EOF
