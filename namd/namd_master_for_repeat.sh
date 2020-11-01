@@ -101,10 +101,10 @@ sed -i '/par_all36m_prot.prm/d' *conf
 elif [[ $cluster == "doe" ]] ; then
 	echo "none"
 else
-
+#sed -i '/stepspercycle/c\CUDASOAintegrate on' *md*conf *eq*conf
 sed -i '/set dir1/c\set dir1     ../toppar' *conf
-bash ${HOME}/bash/namd/cpu_script.sh
-bash ${HOME}/bash/namd/gpu_script.sh
+bash ${HOME}/bash/namd/uf_cpu_script.sh
+bash ${HOME}/bash/namd/uf_gpu_script.sh
 
 fi
 

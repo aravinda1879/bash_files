@@ -8,7 +8,11 @@ set all [atomselect top all]
 set seg_lst [lsort -unique [\$all get chain] ]
 foreach seg \$seg_lst {
 set t_sel [atomselect top "protein and chain \$seg"]
+set t_sel2 [atomselect top "not protein and not water and chain \$seg"]
+set wat [atomselect top "water and chain \$seg"]
 \${t_sel} writepdb ${in_pdb}_seg\${seg}.pdb 
+\${t_sel2} writepdb ${in_pdb}_lig_seg\${seg}.pdb
+\${wat} writepdb ${in_pdb}_wat_seg\${seg}.pdb
 }
 EOF
 vmd -dispdev text -eofexit <pdb_seg_seperate.tcl> seg_seperate.log  

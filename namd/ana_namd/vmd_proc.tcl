@@ -505,9 +505,9 @@ proc radial { mol sel1 sel2 r_max ou_file fst lst { wrap "no"} } {
 	}
 	set sel1 [atomselect $mol "$sel1"]
 	set sel2 [atomselect $mol "$sel2"]
-        set l_gor [measure gofr $sel1 $sel2 delta 0.1 rmax $r_max usepbc 1 selupdate 1 first $fst last $lst step 1]
+        set l_gor [measure gofr $sel1 $sel2 delta 0.1 rmax $r_max usepbc 0 selupdate 0 first $fst last $lst step 1]
         set r_l [lindex $l_gor 0]
-        set gr_l [lindex $l_gor 1]
+        set gr_l [lindex $l_gor 3]
         set int_l [lindex $l_gor 2]
         set outfile [open $ou_file w]
         foreach j  $r_l k $gr_l l  $int_l {

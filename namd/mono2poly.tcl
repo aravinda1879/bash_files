@@ -116,12 +116,12 @@ proc mono2poly {args} {
       }
     }
     close $channel
-    file delete ${output}.${i}.pdb
+    #file delete ${output}.${i}.pdb
     mol delete top
     incr i 
   }
   close $out
-  file delete ${output}.org.pdb
+  #file delete ${output}.org.pdb
   mol load pdb ${output}.pdb
   set all [atomselect top all]
   $all writepdb ${output}.pdb

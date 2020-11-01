@@ -50,41 +50,41 @@ wrapAll=off
 
 
 #parameter file name                  IMPORTANT!!!
-#linker_prm_file1=lys_init_acr_psf.str
-#linker_prm_file2=pi.str
-#linker_prm_file3=ma_ma_mabr.str
-#linker_prm_file4=missing_par_ini_polma_psf.prm
-#linker_prm_file5=ma_mol_bb.str
-#linker_prm_file6=common_lys_long_acr_psf.prm
-#linker_prm_file7=ma_peg.str
+linker_prm_file1=in_pni.str 
+linker_prm_file2=CD-ini_connect_2.str 
+linker_prm_file3=pnipam_3.str 
+linker_prm_file4=pnipam_3.str 
+linker_prm_file5=pnipam_3.str 
+linker_prm_file6=pnipam_3.str 
+linker_prm_file7=pnipam_3.str 
 
 
 
 #linker_prm_file1=
 #linker_prm_file2=
-linker_prm_file1=par_all36_prot.prm                     
-linker_prm_file2=par_all36_prot.prm                                      
-linker_prm_file3=par_all36_prot.prm                   
+#linker_prm_file1=par_all36_prot.prm                     
+#linker_prm_file2=par_all36_prot.prm                                      
+#linker_prm_file3=par_all36_prot.prm                   
 #linker_prm_file4=toppar_all36_synthetic_polymer.str
-linker_prm_file4=par_all36_carb.prm
-linker_prm_file5=toppar_all36_carb_glycopeptide.str
-linker_prm_file6=toppar_water_ions.str                        
-linker_prm_file7=toppar_water_ions.str 
+#linker_prm_file4=par_all36_carb.prm
+#linker_prm_file5=toppar_all36_carb_glycopeptide.str
+#linker_prm_file6=toppar_water_ions.str                        
+#linker_prm_file7=toppar_water_ions.str 
 #solvating variables
 buf_d=14
-cubic_box=yes
-cubic_box_vec=75 # half of one needed (i.e. - for a box size with 140A give 70)  
+cubic_box=yes  
+cubic_box_vec=35 # half of one needed (i.e. - for a box size with 140A give 70)  
 
 #minimizing variables
 final_temp=${T}
 first_time_step=0
 
 #ff parameters
-vdw_cutoff=10.0
+vdw_cutoff=12.0
 switching=on   
 vdwForceSwitching=on        
-switchdist=8.0
-pairlistdist=12
+switchdist=10.0
+pairlistdist=14
 
 #MD run related
 timestep=4.0
@@ -141,7 +141,7 @@ md_run0=2500000
 
 #total run time
 to_ns=000000
-time_in_ns=300
-run_time=\$(( time_in_ns / 2 ))\${to_ns}
+time_in_ns=220
+run_time=\$(( time_in_ns / 4 ))\${to_ns}
 
 EOF

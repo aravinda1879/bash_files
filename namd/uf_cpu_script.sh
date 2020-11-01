@@ -3,19 +3,24 @@ source ../namd_variables.sh
 cat << EOF > script_cpu.sh
 #!/bin/bash
 #SBATCH --job-name=${infile}
-#SBATCH --output=cpu.out
-#SBATCH --error=cpu.err
+#SBATCH --output=gpuMemTest.out
+#SBATCH --error=gpuMemTest.err
 #SBATCH --ntasks=${num_cpu}
 ##SBATCH --nodes=$num_nodes
 #SBATCH --cpus-per-task=1
 ##SBATCH --ntasks-per-socket=1
 #SBATCH --distribution=cyclic:cyclic
-#SBATCH --time=7-00:00:00
+#SBATCH --time=4-00:00:00
 #SBATCH --mem-per-cpu=2gb
 #SBATCH --mail-type=none
-#SBATCH --partition=shared
+#SBATCH --mail-user=some_user@some_domain.com
+##SBATCH --account=your_account
+#SBATCH --qos=colina-b
+#SBATCH --partition=hpg2-compute
+##SBATCH --gres=gpu:tesla:${num_gpu}
 
-#ml intel/2018  openmpi/3.1.2 namd/2.13
+#export PATH=/home/aravinda1879/progs/namd/2.12/Linux-x86_64-icc:\$PATH
+ml intel/2018  openmpi/3.1.2 namd/2.13
 namd2_dir="/n/karplus_lab/aravinda1879/software/NAMD_2.14_Linux-x86_64-verbs"
 #source ~/conda_list.sh 
 #python3 /n/karplus_lab/aravinda1879/nodelist.py \$SLURM_NODELIST
