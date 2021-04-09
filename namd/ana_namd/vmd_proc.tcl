@@ -18,13 +18,27 @@
 #incr_resnumber {mol out_pdb out_psf  }
 #continue_resnumber {mol beg_num out_old_res_new_res_file out_pdb out_psf need_psf }
 #bfactor {sel start end outfile} 
+
 puts "vmd_proc.tcl was read"
+proc aa3to1 {aa} {
+    set  aa_3 [list ALA ASP CYS GLU PHE GLY HIS ILE LEU MET ASN PRO GLN ARG LYS SER THR VAL TRP TYR]
+    set  aa_1 [list A D C E F G H I L M N P Q R K S T V W Y ]
+    foreach a3 $aa_3 a1 $aa_1 {
+	set a3_1($a3) $a1
+    }
+    return $a3_1($aa)
+}
 #Prints the SASA of selection use -points pts if want to get picture then foreach pt $pts { draw point $pt } to get the drawing for frame
 proc wrap { sel_wrap } {
 	puts "wrapping the system"	
 	package require pbctools
 	#pbc wrap -center com -centersel $sel_wrap -all -compound residue
         pbc wrap  -center com -centersel "$sel_wrap" -all 
+}
+proc unwrap_sel { sel_unwrap } {
+    puts "unwrapping the system"
+    package require pbctools
+    pbc unwrap -sel "$sel_unwrap" 
 }
 proc join_sel { sel_wrap } { 
 	package require pbctools
