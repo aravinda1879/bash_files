@@ -7,6 +7,8 @@ source  ${HOME}/bash/namd/charmm_lib.sh
 #gedit namd_variables.sh
 source namd_variables.sh
 #copying library files
+cp ../$psf_f .
+cp ../$pdb_f .
 mkdir $dir2
 mkdir $dir3
 cd $dir2
@@ -39,6 +41,7 @@ export j=$i
 echo "additional $i conf file was prited"
 bash ${HOME}/bash/namd/implicit/conf_production_rest.sh
 done
+sed -i "s/set dir1           ..\/toppar/set dir1   \/home\/aravinda1879\/research\/github_projects\/toppar/g" *conf
 echo "done printing configuration files"
 #coping all required files to running directory
 #cp conf* ../$dir3/.

@@ -1,0 +1,37 @@
+MD simulation of DHFR solvated in a shell of water. The MD calculation
+uses openmm libraries (paths set in "run" script); the main simulation
+config is "md.py", which also sources aux script CHOMM.py.
+
+Solvent shell forces are implemented in a custom openmm plugin with
+separate input files.
+
+The md.py turns on the shell plugin with "dynamo=1", which tells CHOMM.py
+to initialize the openmm plugin with the from config file with name stored
+in the variable "dynamoConfig" ; the output from the plugin is sent to the
+file with name in the variable "dynamoLog"
+
+The watershell/dynamo plugin requires its own restart scheme (because the
+shell adjusts to the simulation, and is therefore time-dependent). This
+is accomplished in the md.py file (which handles multiple runs with
+restarts via specification of "firstrun=<>" and "numrun=<>" by generating
+inputs for each the watershell plugin run from the template file "watershell.dyn"
+
+The shell plugin provides a crude method of density equilibration; this
+is accomplished with the flag "dasystat=yes" in the plugin input. To
+compute the solvent density, solvent masses are needed ;
+the following parameters in the shell input describe how to obtain them
+
+  mass=file
+  massfile=struc/dhfr-mass.pdb
+  massfiletype=PDB
+  masscol=B
+
+a vmd script to compute the mass file dhfr-mass.pdb is provided in struc/
+Note that, because only water oxygens are considered solvent atoms  (to
+increase speed since waters a rigid, only the mass of water oxygens is
+considered in the plugin code); therefore, to have the correct density,
+mkmass.vmd assigns the oxygen mass to 18amu (i.e. not 16) to include
+hydrogen masses. With dasystat=off, no masses are needed.
+
+
+

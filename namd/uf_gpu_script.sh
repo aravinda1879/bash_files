@@ -10,7 +10,7 @@ cat << EOF > script_gpu.sh
 #SBATCH --cpus-per-task=${num_gpu_cpu}
 #SBATCH --ntasks-per-socket=1
 #SBATCH --distribution=block:block
-#SBATCH --time=4-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --mem-per-cpu=1gb
 #SBATCH --mail-type=none
 #SBATCH --mail-user=some_user@some_domain.com
@@ -35,13 +35,13 @@ echo "PEMAP                = \$PEMAP"
 \${namd2_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP   ${conf_min2_f} > ${infile}_wb_min_2.log
 module load vmd
 vmd -dispdev text -eofexit < $tcl_f4 > output_vmd5.log
-\${namd2_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP    ${conf_heat_eq_f} > ${infile}_wb_eq_heat.log
-\${namd2_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP    ${conf_pro_f} > ${infile}_wb_md1.log
+\${namd3_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP    ${conf_heat_eq_f} > ${infile}_wb_eq_heat.log
+\${namd3_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP    ${conf_pro_f} > ${infile}_wb_md1.log
 EOF
 for i in `seq 2 $run_repeat`;
 do
 cat << EOF >> script_gpu.sh
-\${namd2_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP    ${conf_pro_f%1.conf}$i.conf > ${infile}_wb_md${i}.log
+\${namd3_dir}  +p\${NAMD_NUM_PES} +idlepoll    +setcpuaffinity  +pemap \$PEMAP    ${conf_pro_f%1.conf}$i.conf > ${infile}_wb_md${i}.log
 EOF
 done    
 cat << EOF >> script_gpu.sh

@@ -42,22 +42,16 @@ firsttimestep \$firsttime
 #############################################################
 # Input
 paraTypeCharmm        on
-parameters          \$dir1/par_all35_ethers_oh.prm
-parameters          \$dir1/par_all36m_prot.prm
-parameters          \$dir1/par_all36_cgenff.prm
-parameters          \$dir1/par_all36_na.prm
-parameters          \$dir1/par_all36_carb.prm
-parameters          \$dir1/par_all36_cgenff.prm
-parameters          \$dir1/par_water_ions.prm
+EOF
 
-parameters          \$dir1/${linker_prm_file1}
-parameters          \$dir1/${linker_prm_file2}
-parameters          \$dir1/${linker_prm_file3}
-parameters          \$dir1/${linker_prm_file4}
-parameters          \$dir1/${linker_prm_file5}
-parameters          \$dir1/${linker_prm_file6}
-parameters          \$dir1/${linker_prm_file7}
-#temperature is commented out only if using bin velocities.
+for par_file in ${parm_lst[@]}; do
+cat << EOF >> ${conf_pro_f//md1./md$(($j+1)).}
+parameters          \$dir1/$par_file
+EOF
+done
+
+cat << EOF >> ${conf_pro_f//md1./md$(($j+1)).}
+#T is commented out only if using bin velocities.
 #temperature         \$temperature
 
 # Force-Field Parameters
@@ -86,11 +80,11 @@ langevinTemp        \$temperature
 langevinHydrogen    ${langevinHydrogen}    ;# dont couple langevin bath to hydrogens
 
 #Pressure control --> commented out during heating and equillibration.
-langevinPiston                  $langevinPiston
-langevinPistonTarget            $langevinPistonTarget
-langevinPistonTemp              \$temperature
-langevinPistonDecay             $langevinPistonDecay
-langevinPistonPeriod            $langevinPistonPeriod
+#langevinPiston                  $langevinPiston
+#langevinPistonTarget            $langevinPistonTarget
+#langevinPistonTemp              \$temperature
+#langevinPistonDecay             $langevinPistonDecay
+#langevinPistonPeriod            $langevinPistonPeriod
 
 useGroupPressure   ${useGroupPressure} ;# needed for rigidBonds
 useFlexibleCell    ${useFlexibleCell} ;# may require in polymers

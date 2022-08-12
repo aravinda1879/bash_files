@@ -26,22 +26,16 @@ firsttimestep      $first_time_step
 #############################################################
 # Input
 paraTypeCharmm        on
-parameters          \$dir1/par_all35_ethers_oh.prm
-parameters          \$dir1/par_all36m_prot.prm
-parameters          \$dir1/par_all36_cgenff.prm
-parameters          \$dir1/par_all36_na.prm
-parameters          \$dir1/par_all36_carb.prm
-parameters          \$dir1/par_all36_cgenff.prm
-parameters          \$dir1/par_water_ions.prm
+EOF
+for pf in ${parm_lst[@]}; do
 
-parameters          \$dir1/${linker_prm_file1}
-parameters          \$dir1/${linker_prm_file2}
-parameters          \$dir1/${linker_prm_file3}
-parameters          \$dir1/${linker_prm_file4}
-parameters          \$dir1/${linker_prm_file5}
-parameters          \$dir1/${linker_prm_file6}
-parameters          \$dir1/${linker_prm_file7}
+cat << EOF >> $conf_min1_f
+parameters          \$dir1/${pf}
+EOF
 
+done
+
+cat << EOF >> $conf_min1_f
 temperature         \$temperature
 
 #GBIS parameters

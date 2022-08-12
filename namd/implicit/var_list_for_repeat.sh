@@ -5,6 +5,7 @@ infile0=$1
 salt=$2
 T=$3
 infile=${infile0}_10ps
+cluster=$4
 cat << EOF > namd_variables.sh
 # common variables
 export infile=${infile}
@@ -39,32 +40,16 @@ num_nodes=2
 num_gpu=1
 num_cpu=1024
 num_gpu_cpu=14
-run_repeat=30  #how many times needed to repeat bash run
+run_repeat=1  #how many times needed to repeat bash run
 #simulation ions 
 wrapWater=off
 wrapAll=off 
 
 
 #parameter file name                  IMPORTANT!!!
-linker_prm_file1=common_lys_long_acr_psf.prm
-linker_prm_file2=nterm_pol.prm
-linker_prm_file3=ma_ma_mabr.str
-linker_prm_file4=missing_par_ini_polma_psf.prm
-linker_prm_file5=ma_mol_bb.str
-linker_prm_file6=az_ln_long.str
-linker_prm_file7=cb2_ma.str
-
-
-
-#linker_prm_file1=
-#linker_prm_file2=
-#linker_prm_file1=par_all36m_prot.prm                     
-#linker_prm_file2=par_all36m_prot.prm                                      
-#linker_prm_file3=par_all36m_prot.prm                   
-#linker_prm_file4=toppar_all36_synthetic_polymer.str
-#linker_prm_file5=par_all36_cgenff.prm                    
-#linker_prm_file6=dma_ma.str                         
-#linker_prm_file7=cb2_ma.str
+parm_lst=(  "par_all36_prot.prm" "par_all36_na.prm" "par_all36_carb.prm" "par_all36_cgenff.prm" "par_water_ions.prm")
+parm_lst=( \${parm_lst[@]} "lys_init_acr_psf.str" "pi.str" "common_lys_long_acr_psf.prm" "pos_init_br.str" "par_all36_cgenff_minBR.prm")
+#parm_lst=( \${parm_lst[@]}  "par_all35_ethers_oh.prm" "top_all35_ethers_oh.rtf" "par_all35_ethers_oh.prm" "mal_ext.str" "ma_peg.str"  )
 
 #minimizing variables
 final_temp=${T}

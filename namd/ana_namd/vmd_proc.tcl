@@ -21,8 +21,8 @@
 
 puts "vmd_proc.tcl was read"
 proc aa3to1 {aa} {
-    set  aa_3 [list ALA ASP CYS GLU PHE GLY HIS ILE LEU MET ASN PRO GLN ARG LYS SER THR VAL TRP TYR]
-    set  aa_1 [list A D C E F G H I L M N P Q R K S T V W Y ]
+    set  aa_3 [list ALA ASP CYS GLU PHE GLY HIS HSD HSE ILE LEU MET ASN PRO GLN ARG LYS SER THR VAL TRP TYR]
+    set  aa_1 [list A D C E F G H H H I L M N P Q R K S T V W Y ]
     foreach a3 $aa_3 a1 $aa_1 {
 	set a3_1($a3) $a1
     }
