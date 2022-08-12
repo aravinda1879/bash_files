@@ -1,0 +1,20 @@
+Info) VMD for LINUXAMD64, version 1.9.4a48 (October 13, 2020)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 8 CPUs detected.
+Info)   CPU features: SSE2 SSE4.1 AVX AVX2 F16 AVX512F AVX512CD HT 
+Info) Free system memory: 12GB (60%)
+Info) No CUDA accelerator devices available.
+Info) Dynamically loaded 3 plugins in directory:
+Info) /usr/local/lib/vmd/plugins/LINUXAMD64/molfile
+ERROR) Could not read file 1eo8_stem_mod0_noFold.pdb
+Unable to load file '1eo8_stem_mod0_noFold.pdb' using file type 'pdb'.
+There is no 'top' molecule  in atomselect's 'molId'
+can't read "all": no such variable
+can't read "seg_lst": no such variable
+Info) VMD for LINUXAMD64, version 1.9.4a48 (October 13, 2020)
+Info) Exiting normally.
